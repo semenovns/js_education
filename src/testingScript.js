@@ -1,1 +1,2 @@
-console.log('Hello, I\'m bot')
+console.log('Hello, I\'m bot');
+document.getElementById('newId').innerText = "Script invoked!";
