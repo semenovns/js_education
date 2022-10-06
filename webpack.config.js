@@ -2,9 +2,10 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-    mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+
+module.exports = {
 
     entry:
     {
@@ -18,19 +19,23 @@ module.exports = {
     },
     
 
+    mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'src/index.html'
-        }),       
-    ],
-
-    rules: [
-        {
-          test: /\.s[ac]ss$/i,
-          use: [MiniCssExtractPlugin.loader,"css-loader","sass-loader",],
-        },
-      ],
+        }),   
+        new MiniCssExtractPlugin(),],
+        
+    module: {
+        rules: [
+          {
+            test: /.s?css$/,
+            use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+          },
+        ],
+      },
 
     devServer: {
         static: {
