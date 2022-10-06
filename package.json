@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/semenovns/js_education/issues"
   },
-  "homepage": "https://github.com/semenovns/js_education#readme"
+  "homepage": "https://github.com/semenovns/js_education#readme",
+  "devDependencies": {
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
 }
