@@ -3,6 +3,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+
+    mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+
     entry:
     {
         index: path.resolve(__dirname, 'src/testingScript.js')
@@ -13,13 +16,22 @@ module.exports = {
         filename: '[name].[contenthash].js',
         clean: true,
     },
-    mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+    
+
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'src/index.html'
         }),       
     ],
+
+    rules: [
+        {
+          test: /\.s[ac]ss$/i,
+          use: [MiniCssExtractPlugin.loader,"css-loader","sass-loader",],
+        },
+      ],
+
     devServer: {
         static: {
             directory: path.join(__dirname, 'public'),
