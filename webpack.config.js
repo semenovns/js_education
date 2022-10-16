@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
+
 
 module.exports = {
 
@@ -17,7 +19,7 @@ module.exports = {
         filename: '[name].[contenthash].js',
         clean: true,
     },
-    
+
 
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
 
@@ -25,17 +27,28 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'src/index.html'
-        }),   
+        }),
         new MiniCssExtractPlugin(),],
-        
+
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new HtmlMinimizerPlugin(),]
+    },
+    
     module: {
         rules: [
-          {
-            test: /.s?css$/,
-            use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-          },
+            {
+                test: /.s?css$/,
+                use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+            },
+            {
+                test: /\.html$/i,
+                type: "asset/resource",
+            },
         ],
-      },
+    },
+
 
     devServer: {
         static: {
